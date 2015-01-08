@@ -1,0 +1,45 @@
+/* 画面表示上は、点線でページ区切りが表示される */
+.wiki .page-break {
+  width: 95%;
+  border-top: 1px dashed #bbb;
+  height: 1px;
+  margin: 3em auto;
+}
+
+/* 印刷時は、非表示にして .page-break を境に改頁されるようにする */
+@media print {
+  .wiki .page-break {
+    border: 0 !important;
+    visibility: hidden;
+    page-break-before: always;
+    margin: 0 !important;
+  }
+}
+
+h2, .wiki h1 {font-size: 20px;border-bottom: 1px solid #bbbbbb;}
+h3, .wiki h2 {font-size: 16px;border-bottom: 1px solid #bbbbbb;}
+
+/* Doing */
+table.issues tr.status-2 {
+  background-color: #ffe4e1; /*mistyrose*/
+}
+
+/* Resolution */
+table.issues tr.status-3 {
+  background-color: #d3d3d3; /*lightgrey*/
+}
+
+/* Feedback */
+table.issues tr.status-4 {
+  background-color: #f08080; /*lightcoral*/
+}
+
+/* Done */
+table.issues tr.status-5 {
+  background-color: #a9a9a9; /*darkgray*/
+}
+
+/* Rejection */
+table.issues tr.status-6 {
+  background-color: #a9a9a9; /*darkgray*/
+}

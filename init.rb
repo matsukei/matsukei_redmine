@@ -13,13 +13,6 @@ Redmine::Plugin.register :matsukei_redmine do
   author_url 'http://www.matsukei.co.jp/'
 end
 
-Redmine::WikiFormatting::Macros.register do
-  desc '改頁'
-  macro :page_break do |obj, args, text|
-    content_tag(:div, nil, class: 'page-break')
-  end
-end
-
 Rails.configuration.to_prepare do
   unless ProjectsHelper.included_modules.include? MatsukeiRedmineProjectsHelperPatch
     ProjectsHelper.send(:include, MatsukeiRedmineProjectsHelperPatch)

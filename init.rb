@@ -1,20 +1,25 @@
 # coding: utf-8
-
-require 'redmine'
-require_dependency 'matsukei_redmine'
-require 'matsukei_redmine_projects_helper_patch'
-
 Redmine::Plugin.register :matsukei_redmine do
   name 'Matsukei Redmine plugin'
-  author 'tachimasa & maeda-m'
+  author 'Matsukei Co.,Ltd'
   description 'This is a plugin for Redmine'
   version '0.0.1'
   url 'https://github.com/matsukei/matsukei_redmine'
   author_url 'http://www.matsukei.co.jp/'
 end
 
-Rails.configuration.to_prepare do
-  unless ProjectsHelper.included_modules.include? MatsukeiRedmineProjectsHelperPatch
-    ProjectsHelper.send(:include, MatsukeiRedmineProjectsHelperPatch)
+require_relative 'lib/matsukei_redmine'
+
+Redmine::WikiFormatting::Macros.register do
+  desc <<DESC
+UNCパスへのリンクを貼る
+<pre>
+使い方:
+  !{{link(\\\\server\\path\\file)}}
+  !{{link(\\\\server\\path\\file, 見積書)}}
+</pre>
+DESC
+  macro :link do |obj, args|
+    MatsukeiRedmine::CustomPathFormat.link_to_path(self, args.join('|')).html_safe
   end
 end

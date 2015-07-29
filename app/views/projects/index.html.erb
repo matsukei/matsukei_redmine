@@ -1,49 +1,56 @@
 <% content_for :header_tags do %>
-    <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
+  <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
 <% end %>
 
 <div class="contextual">
-    <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
-    <%= link_to(l(:label_issue_view_all), issues_path) + ' |' if User.current.allowed_to?(:view_issues, nil, :global => true) %>
-    <%= link_to(l(:label_overall_spent_time), time_entries_path) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
-    <%= link_to l(:label_overall_activity),
-                { :controller => 'activities', :action => 'index',
-                  :id => nil } %>
+  <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
+  <%= link_to(l(:label_issue_view_all), issues_path) + ' |' if User.current.allowed_to?(:view_issues, nil, :global => true) %>
+  <%= link_to(l(:label_overall_spent_time), time_entries_path) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
+  <%= link_to l(:label_overall_activity),
+              { :controller => 'activities', :action => 'index',
+                :id => nil } %>
 </div>
 
 <h2><%=l(:label_project_plural)%></h2>
 
 <div class="autoscroll">
-<table class="list">
-  <thead><tr>
-  <th style="width:20px;"></th>
-  <th><%=l(:label_project)%></th>
-  <th><%=l(:field_is_public)%></th>
-  <th><%=l(:field_updated_on)%></th>
-  </tr></thead>
-  <tbody>
-<% project_tree(@projects) do |project, level| %>
-  <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
-  <td align="center">
-    <% if User.current.member_of?(project) %>
-      <span class="my-project"></span>
-    <% end %>
-  </td>
-  <td class="name"><span><%= link_to_project(project, {}, :title => project.short_description) %></span></td>
-  <td align="center"><%= checked_image project.is_public? %></td>
-  <td align="center">
-    <%= format_date(events_last_updated_on(project)) %>
-  </td>
-  </tr>
-<% end %>
-  </tbody>
-</table>
+  <table class="list">
+    <thead>
+      <tr>
+        <th style="width:20px;"></th>
+        <th><%=l(:label_project)%></th>
+        <th><%=l(:field_is_public)%></th>
+        <th><%=l(:field_updated_on)%></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% allowed_to_copy_project = User.current.allowed_to?(:add_project, nil, :global => true) %>
+      <% project_tree(@projects) do |project, level| %>
+        <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+          <td align="center">
+            <% if User.current.member_of?(project) %>
+              <span class="my-project"></span>
+            <% end %>
+          </td>
+          <td class="name"><span><%= link_to_project(project, {}, :title => project.short_description) %></span></td>
+          <td align="center"><%= checked_image project.is_public? %></td>
+          <td align="center">
+            <%= format_date(events_last_updated_on(project)) %>
+          </td>
+          <td class="buttons">
+            <%= link_to(l(:button_copy), { :controller => 'projects', :action => 'copy', :id => project }, :class => 'icon icon-copy') if allowed_to_copy_project && (project.is_public? || User.current.member_of?(project)) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <% if User.current.logged? %>
-<p style="text-align:right;">
-<span class="my-project"><%= l(:label_my_projects) %></span>
-</p>
+  <p style="text-align:right;">
+    <span class="my-project"><%= l(:label_my_projects) %></span>
+  </p>
 <% end %>
 
 <% other_formats_links do |f| %>

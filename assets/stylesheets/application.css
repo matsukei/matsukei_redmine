@@ -1,5 +1,20 @@
-h2, .wiki h1 {font-size: 20px;border-bottom: 1px solid #bbbbbb;}
-h3, .wiki h2 {font-size: 16px;border-bottom: 1px solid #bbbbbb;}
+h2, .wiki h1 {
+  font-size: 20px;
+  border-bottom: 1px solid #bbbbbb;
+}
+
+h3, .wiki h2 {
+  font-size: 16px;
+  border-bottom: 1px solid #bbbbbb;
+}
+
+#sidebar ul {
+  margin-left: 2.5em !important;
+}
+
+#sidebar ul li {
+  list-style-type: inherit !important;
+}
 
 /* Doing */
 table.issues tr.status-2 {

@@ -2,5 +2,7 @@ ja:
   label_link: 'リンク'
   label_path: ファイル/ディレクトリパス
 
+  field_replies_sorting: 返答の表示順
+
   default_watcher:
     label_setting: デフォルトウォッチャー

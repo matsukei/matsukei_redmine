@@ -3,5 +3,7 @@ en:
   label_link: link
   label_path: file/directory path
 
+  field_replies_sorting: Display replies
+
   default_watcher:
     label_setting: Default watcher

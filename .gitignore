@@ -26,4 +26,11 @@
 
 /.bundle
 /Gemfile.local
+/Gemfile.lock
 
+/config/reposman_notifier.yml
+/config/deploy/*.rb
+/config/deploy.rb
+
+/extra/backup
+/extra/task

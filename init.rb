@@ -3,7 +3,7 @@ Redmine::Plugin.register :matsukei_redmine do
   name 'Matsukei Redmine plugin'
   author 'Matsukei Co.,Ltd'
   description 'This is a plugin for Redmine'
-  version '0.0.1'
+  version '0.0.2'
   url 'https://github.com/matsukei/matsukei_redmine'
   author_url 'http://www.matsukei.co.jp/'
 end

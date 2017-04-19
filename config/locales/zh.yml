@@ -1,0 +1,9 @@
+# Simplified Chinese strings go here for Rails i18n
+zh:
+  label_link: 链接
+  label_path: 文件/目录路径
+
+  field_replies_sorting: 显示回复
+
+  default_watcher:
+    label_setting: 默认跟踪者

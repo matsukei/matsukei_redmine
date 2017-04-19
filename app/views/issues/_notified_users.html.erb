@@ -1,0 +1,13 @@
+<% if @issue && @issue.persisted? %>
+  <% notified_users = @issue.project.users.to_a.select { |user| user.notify_about?(@issue) || @issue.watcher_users.include?(user) } %>
+  <h3><%= l(:field_mail_notification) %> (<%= notified_users.size %>)</h3>
+
+  <ul>
+    <% notified_users.each do |notified_user| %>
+      <li>
+        <%= avatar(notified_user, size: "16") %>
+        <%= link_to_user(notified_user, class: 'user') %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,26 @@
+<%= labelled_form_for ProjectDefaultWatcher.new,
+  as: :settings, url: default_watcher_setting_update_path(@project),
+  remote: true, method: :put, html: { id: 'default-watcher-setting' } do |f| %>
+
+  <% ProjectDefaultWatcher::WATCHABLE_TYPES.each do |watchable_type| %>
+    <% default_watcher = @project.default_watchers.find_or_initialize_by(watchable_type: watchable_type) %>
+    <% watchable_type = watchable_type.underscore %>
+
+    <div class="box tabular">
+      <p>
+        <label><%= l("label_#{watchable_type}") %></label>
+        <span id="<%= watchable_type %>_watchers_inputs">
+          <% @project.users.map do |user| %>
+            <% tag = check_box_tag "settings[#{watchable_type}][]", user.id, default_watcher.user_ids.include?(user.id.to_s), id: nil %>
+            <%= content_tag 'label', "#{tag} #{h(user)}".html_safe, id: "settings_#{watchable_type}_#{user.id}", class: "floating" %>
+          <% end %>
+        </span>
+      </p>
+      <%= hidden_field_tag("settings[#{watchable_type}][]", '', id: nil) %>
+      <p><%= check_all_links "#{watchable_type}_watchers_inputs" %></p>
+    </div>
+
+  <% end %>
+
+  <%= submit_tag(l(:button_save)) %>
+<% end %>

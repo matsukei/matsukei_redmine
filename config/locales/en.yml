@@ -2,3 +2,6 @@
 en:
   label_link: link
   label_path: file/directory path
+
+  default_watcher:
+    label_setting: Default watcher

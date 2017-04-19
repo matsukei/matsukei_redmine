@@ -1,3 +1,6 @@
 ja:
   label_link: 'リンク'
   label_path: ファイル/ディレクトリパス
+
+  default_watcher:
+    label_setting: デフォルトウォッチャー

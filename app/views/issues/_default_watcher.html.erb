@@ -1,0 +1,15 @@
+<% default_watcher = @issue.project.default_watchers.where(watchable_type: 'Issue').first %>
+<% if @issue.new_record? && action_name == 'new' && default_watcher.present? %>
+  <script>
+    var user_ids = <%= raw default_watcher.user_ids.compact.to_s %>;
+
+    $(window).on('load',function(){
+      $('#watchers_inputs').find("input[type='checkbox']").each(function(i, element) {
+        element = $(element);
+        if ($.inArray(element.attr('value'), user_ids) != -1) {
+          element.attr('checked', 'checked');
+        }
+      });
+    });
+  </script>
+<% end %>
